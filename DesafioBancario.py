@@ -1,17 +1,22 @@
+nome = input("Digite seu nome: ")
+print(f"Seja bem vindo(a) {nome} ao banco Python!")
+
 menu = """
 
 [d] Depositar
 [s] Sacar
 [e] Extrato
+[c] Criar conta
 [q] Sair
 
 => """
-
 saldo = 0
 limite = 500
 extrato = ""
 numero_saques = 0
 LIMITESAQUES = 3
+
+usuarios = []
 
 while True:
     opcao = input(menu)
@@ -49,7 +54,22 @@ while True:
         
         else:
             print("Operação falhou! O valor informado é invalido.")
+    
+    elif opcao == "c":
+        print("\n===Cadastro do usuário===")
+        nome = input("Nome completo: ")
+        cpf = int(input("CPF (somente números): "))
+        data_nascimento = input("Data nascimento (dd-mm-aaaa): ")
         
+        usuario_existente = [u for u in usuarios if u["cpf"] == cpf]
+            
+        if usuario_existente:
+            print("\nJá existe usuário com esse CPF!")
+        else:
+            usuarios.append({"nome": nome, "cpf": cpf, "data_nascimento": data_nascimento})
+            print("\nUsuário cadastrado com sucesso!")
+            print(usuarios)
+    
     elif opcao == "e":
         print("\n================EXTRATO================")
         print("Não foram realizadas movimentações." if not extrato else extrato)
